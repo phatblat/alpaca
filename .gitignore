@@ -5,7 +5,7 @@
 .DS_Store
 .build/
 .classpath
-.env
+.env*
 .gradle/
 .idea/
 .project
