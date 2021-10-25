@@ -1,4 +1,4 @@
-import requests
+import alpaca_trade_api as alpaca
 import os
 from dotenv import load_dotenv
 
@@ -6,19 +6,17 @@ load_dotenv()
 
 base_url = os.getenv('APCA_API_BASE_URL')
 print(f'Alpaca API base URL: {base_url}')
-api_key_id = os.getenv('APCA_API_KEY_ID')
-print(f'Alpaca API key ID: {api_key_id}')
-secret_key = os.getenv('APCA_API_SECRET_KEY')
-print(f'Alpaca API secret key: {secret_key}')
 
-api_url = f"{base_url}/v2/account"
-session = requests.Session()
-session.headers.update({
-    'APCA-API-KEY-ID': api_key_id,
-    'APCA-API-SECRET-KEY': secret_key,
-})
+api = alpaca.REST()
+account = api.get_account()
+print(account)
 
-response = requests.get(api_url)
-print(response.status_code)
-data = response.json()
-print(data)
+if account.trading_blocked:
+    print('Account is currently restricted from trading.')
+
+# Check how much money we can use to open new positions.
+print('${} is available as buying power.'.format(account.buying_power))
+print(f'Current equity: ${account.equity}')
+
+balance_change = float(account.equity) - float(account.last_equity)
+print(f'Today\'s portfolio balance change: ${balance_change}')
