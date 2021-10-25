@@ -4,11 +4,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-base_url = os.getenv('BASE_URL')
+base_url = os.getenv('APCA_API_BASE_URL')
 print(f'Alpaca API base URL: {base_url}')
-api_key_id = os.getenv('API_KEY_ID')
+api_key_id = os.getenv('APCA_API_KEY_ID')
 print(f'Alpaca API key ID: {api_key_id}')
-secret_key = os.getenv('SECRET_KEY')
+secret_key = os.getenv('APCA_API_SECRET_KEY')
 print(f'Alpaca API secret key: {secret_key}')
 
 api_url = f"{base_url}/v2/account"
